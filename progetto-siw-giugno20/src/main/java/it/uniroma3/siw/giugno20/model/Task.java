@@ -41,6 +41,9 @@ public class Task {
 	@ManyToOne
 	private Project project;
 	
+	@ManyToOne
+	private User userTask;
+	
 	public Task() {}
 	
 	public Task(String name, String description) {

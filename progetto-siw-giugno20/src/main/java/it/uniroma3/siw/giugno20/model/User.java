@@ -7,9 +7,11 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
@@ -52,6 +54,13 @@ public class User {
 	 */
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.REMOVE)
 	private List<Project> ownedProjects;
+	
+	/**
+	 * 
+	 */
+	@OneToMany(mappedBy = "userTask", fetch = FetchType.EAGER)
+	@JoinColumn(name = "userTask_id")
+	private List<Task> tasks;
 	
 	public User() {
 		this.visibleProjects = new ArrayList<>();
@@ -117,6 +126,10 @@ public class User {
 
 	public void setOwnedProjects(List<Project> ownedProjects) {
 		this.ownedProjects = ownedProjects;
+	}
+	
+	public void addTask(Task task) {
+		tasks.add(task);
 	}
 
 	@Override

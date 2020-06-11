@@ -120,6 +120,14 @@ public class Project {
 	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}
+	
+	public void addMember(User user) {
+		members.add(user);
+	}
+	
+	public void addTask(Task task) {
+		tasks.add(task);
+	}
 
 	@Override
 	public int hashCode() {
