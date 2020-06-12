@@ -59,7 +59,6 @@ public class User {
 	 * 
 	 */
 	@OneToMany(mappedBy = "userTask", fetch = FetchType.EAGER)
-	@JoinColumn(name = "userTask_id")
 	private List<Task> tasks;
 	
 	public User() {
