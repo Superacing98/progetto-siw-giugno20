@@ -51,14 +51,19 @@ public class Project {
 	/**
 	 * 
 	 */
-	@OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "project_id")
 	private List<Task> tasks;
+	
+	@OneToMany()
+	@JoinColumn(name = "project_tags_id")
+	private List<Tag> tags;
 	
 	
 	public Project() {
 		this.members = new ArrayList<>();
 		this.tasks = new ArrayList<>();
+		this.tags = new ArrayList<>();
 	}
 	
 	public Project(String name) {
@@ -127,6 +132,18 @@ public class Project {
 	
 	public void addTask(Task task) {
 		tasks.add(task);
+	}
+	
+	public List<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
+	}
+
+	public void addTag(Tag tag) {
+		tags.add(tag);
 	}
 
 	@Override

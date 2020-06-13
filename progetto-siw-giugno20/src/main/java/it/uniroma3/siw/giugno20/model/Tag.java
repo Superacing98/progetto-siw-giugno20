@@ -1,6 +1,5 @@
 package it.uniroma3.siw.giugno20.model;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,58 +10,47 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
 
 @Entity
-public class Task {
+public class Tag {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	/**
-	 * Name for this task
+	 * Name for this tag
 	 */
 	@Column(nullable = false, length = 100)
 	private String name;
 	
 	/**
-	 * Description for this task
+	 * Color for this tag
 	 */
-	@Column(length = 1000)
+	@Column(nullable = false, length = 20)
+	private String color;
+	
+	/**
+	 * Description for this tag
+	 */
+	@Column(nullable = false,length = 1000)
 	private String description;
 	
-	/**
-	 * 
-	 */
-	@Column(nullable = false, updatable = false)
-	private LocalDateTime creationDate;
+	@ManyToMany
+	private List<Task> tasks;
 	
-	/**
-	 * 
-	 */
 	@ManyToOne
 	private Project project;
 	
-	@ManyToOne
-	private User userTask;
-	
-	@ManyToMany(mappedBy = "tasks")
-	private List<Tag> tags;
-	
-	public Task() {
-		this.tags = new ArrayList<>();
+	public Tag() {
+		this.tasks = new ArrayList<>();
 	}
 	
-	public Task(String name, String description) {
+	public Tag(String name, String color, String description) {
 		this();
 		this.name = name;
+		this.color = color;
 		this.description = description;
-	}
-	
-	@PrePersist
-	public void onPersist() {
-		this.creationDate = LocalDateTime.now();
 	}
 	
 	//GETTERS AND SETTERS
@@ -83,6 +71,14 @@ public class Task {
 		this.name = name;
 	}
 
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -91,12 +87,12 @@ public class Task {
 		this.description = description;
 	}
 
-	public LocalDateTime getCreationDate() {
-		return creationDate;
+	public List<Task> getTasks() {
+		return tasks;
 	}
 
-	public void setCreationDate(LocalDateTime creationDate) {
-		this.creationDate = creationDate;
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
 	}
 
 	public Project getProject() {
@@ -106,25 +102,9 @@ public class Task {
 	public void setProject(Project project) {
 		this.project = project;
 	}
-
-	public User getUserTask() {
-		return userTask;
-	}
-
-	public void setUserTask(User userTask) {
-		this.userTask = userTask;
-	}
-
-	public List<Tag> getTags() {
-		return tags;
-	}
-
-	public void setTags(List<Tag> tags) {
-		this.tags = tags;
-	}
 	
-	public void addTag(Tag tag) {
-		tags.add(tag);
+	public void addTask(Task task) {
+		tasks.add(task);
 	}
 
 	@Override
@@ -143,7 +123,7 @@ public class Task {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Task other = (Task) obj;
+		Tag other = (Tag) obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;
