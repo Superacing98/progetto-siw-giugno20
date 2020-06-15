@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org">
+<head>
+<title>TaskManager</title>
+</head>
+<body>
+	<h1 th:text="${project.name}"></h1>
+	<div th:if="${members.size() > 0}">
+		<h3>Shared with:</h3>
+		<ul>
+			<li th:each="member : ${members}">
+				<div th:text="${member.firstName} + ' ' + ${member.lastName}"></div>
+			</li>
+		</ul>
+	</div>
+	<h3>Tasks</h3>
+	<ul>
+		<li th:each="task : ${project.tasks}">
+			<div th:text="${task.name}"></div>
+			<div th:text="${task.description}"></div>
+		</li>
+	</ul>
+	<h4>
+		<a th:href="'/projects/' + ${project.id} + '/task/add'">Add Task</a>
+	</h4>
+	<div th:if="${project.getOwner().equals(loggedUser)}">
+	<form method="POST"
+		th:action="@{/projects/{projectId}/users(projectId=${project.id})}">
+		<button type="submit" name="submit" value="value">SHARE</button>
+	</form>
+	</div>
+</body>
+</html>

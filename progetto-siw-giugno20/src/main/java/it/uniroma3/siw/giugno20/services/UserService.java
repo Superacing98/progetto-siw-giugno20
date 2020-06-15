@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.uniroma3.siw.giugno20.model.Project;
 import it.uniroma3.siw.giugno20.model.User;
 import it.uniroma3.siw.giugno20.repository.UserRepository;
 
@@ -40,5 +41,10 @@ public class UserService {
 	@Transactional
 	public void deleteUser(Long id) {
 		this.userRepository.deleteById(id);
+	}
+	
+	@Transactional
+	public List<User> getMembers(Project project) {
+		return this.userRepository.findByVisibleProjects(project);
 	}
 }

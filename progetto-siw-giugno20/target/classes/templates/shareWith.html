@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Share</title>
+</head>
+<body>
+	<h1>Share Project With</h1>
+	<div>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user : ${usersList}">
+					<td><a th:href="'/projects/' + ${project.id} + '/shareSuccess/' + ${user.id}"
+						th:text="${user.firstName}">...</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

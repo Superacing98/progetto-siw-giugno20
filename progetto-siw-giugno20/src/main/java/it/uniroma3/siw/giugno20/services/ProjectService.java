@@ -58,4 +58,9 @@ public class ProjectService {
 			lista.add(p);
 		return lista;
 	}
+	
+	@Transactional
+	public List<Project> retrieveVisibleProjects(User user) {
+		return this.projectRepository.findByMembers(user);
+	}
 }
