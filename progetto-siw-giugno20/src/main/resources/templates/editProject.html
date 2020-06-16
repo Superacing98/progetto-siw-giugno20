@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org">
+<head>
+<title>Edit new project</title>
+</head>
+
+<body>
+	<h1>Edit New Project</h1>
+	<form id="editProjectForm" th:action="@{/projects/{projectId}/edit(projectId=${project.id})}"
+		th:object="${projectForm}" method="POST">
+		<table>
+			<tr>
+				<td><label for="nameInput">Project Name</label>
+				<td><input id=nameInput type="text" th:field="*{name}" required
+					placeholder="NAME" /></td>
+				<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+					th:style="'color:red'"></td>
+			</tr>
+			<tr>
+				<td>
+					<button type="submit">Edit</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+	<h3>
+		<a href="/home">Home</a>
+	</h3>
+</body>
+</html>

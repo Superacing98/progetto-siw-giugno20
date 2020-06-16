@@ -98,6 +98,8 @@ public class ProjectController {
 	@RequestMapping(value = { "/projects/{projectId}/users" }, method = RequestMethod.POST)
 	public String showUsersList(Model model, @PathVariable Long projectId) {
 		List<User> usersList = this.userService.findAllUser();
+		User loggedUser = sessionData.getLoggedUser();
+		usersList.remove(loggedUser);
 		Project project = this.projectService.getProject(projectId);
 		model.addAttribute("usersList", usersList);
 		model.addAttribute("project", project);
@@ -111,8 +113,8 @@ public class ProjectController {
 
 		Project project = this.projectService.getProject(projectId);
 		User user = this.userService.getUser(userId);
-		if(user == null)
-			return "shareWith";
+		if(project.getMembers().contains(user))
+			return "shareError";
 		this.projectService.shareProjectWithUser(project, user);
 		model.addAttribute("user", user);
 		return "shareSuccess";
@@ -122,5 +124,29 @@ public class ProjectController {
 	public String deleteProject(Model model, @PathVariable Long projectId) {
 		this.projectService.deleteProject(projectId);
 		return "redirect:/projects";
+	}
+	
+	@RequestMapping(value = { "/projects/{projectId}/edit/form" }, method = RequestMethod.POST)
+	public String showEditForm(Model model, @PathVariable Long projectId) {
+		Project project = this.projectService.getProject(projectId);
+		model.addAttribute("projectForm", project);
+		model.addAttribute("project", project);
+		return "editProject";
+	}
+	
+	@RequestMapping(value = { "/projects/{projectId}/edit" }, method = RequestMethod.POST)
+	public String editProject(@Valid @ModelAttribute("projectForm") Project project,
+			BindingResult projectBindingResult,
+			 @PathVariable Long projectId,
+			Model model) {
+		
+		Project updateProject = this.projectService.getProject(projectId);
+		this.projectValidator.validate(project, projectBindingResult);
+		if(!projectBindingResult.hasErrors()) {
+			updateProject.setName(project.getName());
+			this.projectService.saveProject(updateProject);
+			return "redirect:/projects/" + updateProject.getId();
+		}
+		return "editProject";
 	}
 }

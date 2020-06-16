@@ -55,7 +55,7 @@ public class Project {
 	@JoinColumn(name = "project_id")
 	private List<Task> tasks;
 	
-	@OneToMany()
+	@OneToMany
 	@JoinColumn(name = "project_tags_id")
 	private List<Tag> tags;
 	

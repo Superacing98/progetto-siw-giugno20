@@ -34,7 +34,7 @@ public class TaskController {
 	@Autowired
 	ProjectService projectService;
 	
-	@RequestMapping(value = { "/projects/{projectId}/task/add" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/projects/{projectId}/task/add/form" }, method = RequestMethod.POST)
 	public String showTaskForm(Model model, @PathVariable Long projectId) {
 		Project project = this.projectService.getProject(projectId);
 		model.addAttribute("project", project);
