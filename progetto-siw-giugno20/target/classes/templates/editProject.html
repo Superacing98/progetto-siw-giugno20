@@ -6,7 +6,7 @@
 </head>
 
 <body>
-	<h1>Edit New Project</h1>
+	<h1>Edit Project</h1>
 	<form id="editProjectForm" th:action="@{/projects/{projectId}/edit(projectId=${project.id})}"
 		th:object="${projectForm}" method="POST">
 		<table>

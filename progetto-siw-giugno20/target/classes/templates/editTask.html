@@ -2,19 +2,18 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="https://www.thymeleaf.org">
 <head>
-<title>New Task</title>
+<title>Edit Task</title>
 </head>
-
 <body>
-	<h1>Add New Task</h1>
-	<form id="newTaskForm"
-		th:action="@{/projects/{projectId}/task/add(projectId=${project.id})}"
+	<h1>Edit Task</h1>
+	<form id="editTaskForm"
+		th:action="@{/projects/{projectId}/task/{taskId}/edit(projectId=${project.id}, taskId=${task.id})}"
 		th:object="${taskForm}" method="POST">
 
 		<table>
 			<tr>
 				<td><label for="nameInput">Task Name</label>
-				<td><input id=nameInput type="text" th:field="*{name}"
+				<td><input id=nameInput type="text" th:field="*{name}" required
 					placeholder="NAME" /></td>
 				<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
 					th:style="'color:red'"></td>
@@ -28,7 +27,7 @@
 			</tr>
 			<tr>
 				<td>
-					<button type="submit">Add</button>
+					<button type="submit">Edit</button>
 				</td>
 			</tr>
 		</table>

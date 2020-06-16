@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org">
+<head>
+<title>Task</title>
+</head>
+<body>
+	<h1 th:text="${task.name}"></h1>
+	<h4 th:text="${task.description}" style="color: gray"></h4>
+	<div th:if="${project.getOwner().equals(loggedUser)}">
+		<form method="POST"
+			th:action="@{/projects/{projectId}/task/{taskId}/edit/form(projectId=${project.id}, taskId=${task.id})}">
+			<button type="submit" name="submit" value="value">EDIT</button>
+		</form>
+		<form method="POST"
+			th:action="@{/projects/{projectId}/task/{taskId}/delete(projectId=${project.id}, taskId=${task.id})}">
+			<button type="submit" name="submit" value="value">DELETE</button>
+		</form>
+
+	</div>
+	<h3>
+		<a href="/home">Home</a>
+	</h3>
+</body>
+</html>

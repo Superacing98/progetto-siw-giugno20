@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import it.uniroma3.siw.giugno20.controller.session.SessionData;
 import it.uniroma3.siw.giugno20.controller.validator.ProjectValidator;
 import it.uniroma3.siw.giugno20.model.Project;
+import it.uniroma3.siw.giugno20.model.Task;
 import it.uniroma3.siw.giugno20.model.User;
 import it.uniroma3.siw.giugno20.services.CredentialsService;
 import it.uniroma3.siw.giugno20.services.ProjectService;
@@ -79,12 +80,14 @@ public class ProjectController {
 		if(project == null) 
 			return "redirect:/projects";
 		List<User> members = this.userService.getMembers(project);
+		List<Task> tasks =project.getTasks();
 		if(!project.getOwner().equals(loggedUser) && !members.contains(loggedUser)) 
 			return "redirect:/projects";
 		model.addAttribute("loggedUser", loggedUser);
 		model.addAttribute("project", project);
 		model.addAttribute("members", members);
-		return "project";
+		model.addAttribute("tasks", tasks);
+		return "project"; 
 	}
 
 	@RequestMapping(value = { "/sharedProjects" }, method = RequestMethod.GET)
@@ -127,7 +130,7 @@ public class ProjectController {
 	}
 	
 	@RequestMapping(value = { "/projects/{projectId}/edit/form" }, method = RequestMethod.POST)
-	public String showEditForm(Model model, @PathVariable Long projectId) {
+	public String showProjectEditForm(Model model, @PathVariable Long projectId) {
 		Project project = this.projectService.getProject(projectId);
 		model.addAttribute("projectForm", project);
 		model.addAttribute("project", project);

@@ -28,9 +28,10 @@
 			<td th:text="${loggedUser.creationDate}">...</td>
 		</tr>
 	</table>
-	<h4>
-		<a href="/profile/update">Update Profile</a>
-	</h4>
+	<form method="POST"
+		th:action="@{/me/edit/form}">
+		<button type="submit" name="submit" value="value">EDIT PROFILE</button>
+	</form>
 	<h3>
 		<a href="/home">Home</a>
 	</h3>

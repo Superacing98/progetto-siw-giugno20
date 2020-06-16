@@ -34,6 +34,11 @@ public class TaskService {
 	}
 	
 	@Transactional
+	public void deleteTask(Long id) {
+		this.taskRepository.deleteById(id);
+	}
+	
+	@Transactional
 	public Task addTaskToUser(Task task, User user) {
 		user.addTask(task);
 		return this.taskRepository.save(task);
