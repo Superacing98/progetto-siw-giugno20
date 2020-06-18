@@ -14,13 +14,35 @@
 			</li>
 		</ul>
 	</div>
+	<div th:if="${project.tasks.size() > 0}">
 	<h3>Tasks</h3>
 	<ul>
-		<li th:each="task : ${tasks}">
-			<div> <a th:href="'/projects/' + ${project.id} + '/task/' + ${task.id}"
-						th:text="${task.name}">...</a></div>
+		<li th:each="task : ${project.tasks}">
+			<div>
+				<a th:href="'/projects/' + ${project.id} + '/task/' + ${task.id}"
+					th:text="${task.name}">...</a>
+			</div>
 		</li>
 	</ul>
+	</div>
+	<div th:if="${assignedTasks.size() > 0}">
+		<h3>Tasks assigned to me</h3>
+		<ul>
+			<li th:each="task : ${assignedTasks}">
+				<div>
+					<a th:text="${task.name}" th:href="'/projects/' + ${project.id} + '/task/' + ${task.id}">...</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div th:if="${project.tags.size() > 0}">
+		<h3>Tag</h3>
+		<ul>
+			<li th:each="tag : ${project.tags}">
+				<div> <a th:href="'/projects/' + ${project.id} + '/tag/' + ${tag.id}" th:text="${tag.name}">...</a></div>
+			</li>
+		</ul>
+	</div>
 	<div th:if="${project.getOwner().equals(loggedUser)}">
 		<form method="POST"
 			th:action="@{/projects/{projectId}/users(projectId=${project.id})}">
@@ -31,12 +53,19 @@
 			<button type="submit" name="submit" value="value">ADD TASK</button>
 		</form>
 		<form method="POST"
+			th:action="@{/projects/{projectId}/tag/add/form(projectId=${project.id})}">
+			<button type="submit" name="submit" value="value">ADD TAG</button>
+		</form>
+		<form method="POST"
 			th:action="@{/projects/{projectId}/edit/form(projectId=${project.id})}">
 			<button type="submit" name="submit" value="value">EDIT</button>
 		</form>
 	</div>
 	<h3>
 		<a href="/home">Home</a>
+	</h3>
+	<h3>
+		<a href="/projects">My Projects</a>
 	</h3>
 </body>
 </html>

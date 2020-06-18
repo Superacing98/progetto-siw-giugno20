@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org">
+<head>
+<title>New Tag</title>
+</head>
+
+<body>
+	<h1>Add New Tag</h1>
+	<form id="newTagForm"
+		th:action="@{/projects/{projectId}/tag/add(projectId=${project.id})}"
+		th:object="${tagForm}" method="POST">
+
+		<table>
+			<tr>
+				<td><label for="nameInput">Tag Name</label>
+				<td><input id=nameInput type="text" th:field="*{name}"
+					placeholder="NAME" /></td>
+				<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+					th:style="'color:red'"></td>
+			</tr>
+			<tr>
+				<td><label for="colorInput">Color</label>
+				<td><input id=colorInput type="text" th:field="*{color}"
+					placeholder="COLOR" /></td>
+				<td th:if="${#fields.hasErrors('color')}" th:errors="*{color}"
+					th:style="'color:red'"></td>
+			</tr>
+			<tr>
+				<td><label for="descriptionInput">Tag Description</label>
+				<td><input id=descriptionInput type="text"
+					th:field="*{description}" placeholder="DESCRIPTION" /></td>
+				<td th:if="${#fields.hasErrors('description')}"
+					th:errors="*{description}" th:style="'color:red'"></td>
+			</tr>
+			<tr>
+				<td>
+					<button type="submit">Add</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+	<h3>
+		<a href="/home">Home</a>
+	</h3>
+</body>
+</html>

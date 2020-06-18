@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org">
+<head>
+<title>Add new comment</title>
+</head>
+
+<body>
+	<h1>Add New Comment</h1>
+	<form id="newCommentForm" th:action="@{/projects/{projectId}/task/{taskId}/comment/add(projectId=${project.id}, taskId=${task.id})}"
+		th:object="${commentForm}" method="POST">
+		<table>
+			<tr>
+				<td><label for="testoInput">Comment</label>
+				<td><input id=testoInput type="text" th:field="*{testo}"
+					placeholder="COMMENT" /></td>
+				<td th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}"
+					th:style="'color:red'"></td>
+			</tr>
+			<tr>
+				<td>
+					<button type="submit">Add</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+	<h3>
+		<a href="/home">Home</a>
+	</h3>
+</body>
+</html>

@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.uniroma3.siw.giugno20.model.Project;
 import it.uniroma3.siw.giugno20.model.Tag;
+import it.uniroma3.siw.giugno20.model.Task;
 import it.uniroma3.siw.giugno20.repository.TagRepository;
 
 @Service
@@ -36,5 +38,22 @@ public class TagService {
 		for(Tag t : i) 
 			lista.add(t);
 		return lista;
+	}
+	
+	@Transactional
+	public Tag addTagToProject(Tag tag, Project project) {
+		project.addTag(tag);
+		return this.tagRepository.save(tag);
+	}
+	
+	@Transactional
+	public Tag addTagToTask(Tag tag, Task task) {
+		tag.addTask(task);
+		return this.tagRepository.save(tag);
+	}
+	
+	@Transactional
+	public List<Tag> retrieveTag(Task task) {
+		return this.tagRepository.findByTasks(task);
 	}
 }

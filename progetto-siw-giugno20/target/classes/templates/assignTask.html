@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Assign Task</title>
+</head>
+<body>
+	<h1>Assign Task With</h1>
+	<div>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="member : ${members}">
+					<td><a th:href="'/projects/' + ${project.id} + '/task/' + ${task.id} + '/assignSuccess/' + ${member.id}"
+						th:text="${member.firstName} + ' ' + ${member.lastName}">...</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<h3>
+		<a href="/home">Home</a>
+	</h3>
+	<h3>
+		<a href="/projects">My Projects</a>
+	</h3>
+</body>
+</html>

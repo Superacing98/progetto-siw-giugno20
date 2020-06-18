@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 
 @Entity
@@ -38,20 +40,18 @@ public class Task {
 	@Column(nullable = false, updatable = false)
 	private LocalDateTime creationDate;
 	
-	/**
-	 * 
-	 */
-	@ManyToOne
-	private Project project;
-	
 	@ManyToOne
 	private User userTask;
 	
-	@ManyToMany(mappedBy = "tasks")
+	@ManyToMany(mappedBy = "tasks", cascade = CascadeType.REMOVE)
 	private List<Tag> tags;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	List<Comment> comments;
 	
 	public Task() {
 		this.tags = new ArrayList<>();
+		this.comments = new ArrayList<>();
 	}
 	
 	public Task(String name, String description) {
@@ -99,14 +99,6 @@ public class Task {
 		this.creationDate = creationDate;
 	}
 
-	public Project getProject() {
-		return project;
-	}
-
-	public void setProject(Project project) {
-		this.project = project;
-	}
-
 	public User getUserTask() {
 		return userTask;
 	}
@@ -125,6 +117,18 @@ public class Task {
 	
 	public void addTag(Tag tag) {
 		tags.add(tag);
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+	
+	public void addComment(Comment comment) {
+		comments.add(comment);
 	}
 
 	@Override

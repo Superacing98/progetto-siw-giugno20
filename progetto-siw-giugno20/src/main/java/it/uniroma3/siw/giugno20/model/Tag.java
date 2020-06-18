@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class Tag {
@@ -38,9 +37,6 @@ public class Tag {
 	
 	@ManyToMany
 	private List<Task> tasks;
-	
-	@ManyToOne
-	private Project project;
 	
 	public Tag() {
 		this.tasks = new ArrayList<>();
@@ -95,14 +91,6 @@ public class Tag {
 		this.tasks = tasks;
 	}
 
-	public Project getProject() {
-		return project;
-	}
-
-	public void setProject(Project project) {
-		this.project = project;
-	}
-	
 	public void addTask(Task task) {
 		tasks.add(task);
 	}

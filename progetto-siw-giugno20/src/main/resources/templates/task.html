@@ -7,19 +7,51 @@
 <body>
 	<h1 th:text="${task.name}"></h1>
 	<h4 th:text="${task.description}" style="color: gray"></h4>
+	<div th:if="${tags.size() > 0}">
+		<h3>Tag</h3>
+		<ul>
+			<li th:each="tag : ${tags}">
+				<div> <a th:href="'/projects/' + ${project.id} + '/tag/' + ${tag.id}" th:text="${tag.name}">...</a></div>
+			</li>
+		</ul>
+	</div>
+	<div th:if="${task.comments.size() > 0}">
+		<h3>Comment</h3>
+		<ul>
+			<li th:each="comment : ${task.comments}">
+				<div th:text="${comment.testo}">...</div>
+			</li>
+		</ul>
+	</div>
 	<div th:if="${project.getOwner().equals(loggedUser)}">
 		<form method="POST"
 			th:action="@{/projects/{projectId}/task/{taskId}/edit/form(projectId=${project.id}, taskId=${task.id})}">
 			<button type="submit" name="submit" value="value">EDIT</button>
 		</form>
 		<form method="POST"
+			th:action="@{/projects/{projectId}/task/{taskId}/tag/add/form(projectId=${project.id}, taskId=${task.id})}">
+			<button type="submit" name="submit" value="value">ADD TAG</button>
+		</form>
+		<form method="POST"
+			th:action="@{/projects/{projectId}/task/{taskId}/assign(projectId=${project.id}, taskId=${task.id})}">
+			<button type="submit" name="submit" value="value">ASSIGN TASK</button>
+		</form>
+		<form method="POST"
 			th:action="@{/projects/{projectId}/task/{taskId}/delete(projectId=${project.id}, taskId=${task.id})}">
 			<button type="submit" name="submit" value="value">DELETE</button>
 		</form>
-
+	</div>
+	<div th:if="${members.contains(loggedUser)}">
+	<form method="POST"
+			th:action="@{/projects/{projectId}/task/{taskId}/comment/add/form(projectId=${project.id}, taskId=${task.id})}">
+			<button type="submit" name="submit" value="value">COMMENT</button>
+		</form>
 	</div>
 	<h3>
 		<a href="/home">Home</a>
+	</h3>
+	<h3>
+		<a href="/projects">My Projects</a>
 	</h3>
 </body>
 </html>

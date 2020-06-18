@@ -58,7 +58,7 @@ public class User {
 	 * 
 	 */
 	@OneToMany
-	@JoinColumn(name = "user_tasks_id")
+	@JoinColumn(name = "user_task_id")
 	private List<Task> tasks;
 	
 	public User() {
@@ -128,7 +128,7 @@ public class User {
 	}
 	
 	public void addTask(Task task) {
-		tasks.add(task);
+		this.tasks.add(task);
 	}
 
 	public List<Task> getTasks() {

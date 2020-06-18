@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org">
+<head>
+<title>Tag</title>
+</head>
+<body>
+	<h1 th:text="${tag.name}"></h1>
+	<h4 th:text="${tag.description}" style="color: gray"></h4>
+	<h4 th:text="${tag.color}" style="color: gray"></h4>
+	<h3>
+		<a href="/home">Home</a>
+	</h3>
+	<h3>
+		<a href="/projects">My Projects</a>
+	</h3>
+</body>
+</html>

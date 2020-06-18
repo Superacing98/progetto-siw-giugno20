@@ -17,7 +17,7 @@
 			<tbody>
 				<tr th:each="user : ${usersList}">
 					<td><a th:href="'/projects/' + ${project.id} + '/shareSuccess/' + ${user.id}"
-						th:text="${user.firstName}">...</a></td>
+						th:text="${user.firstName} + ' ' + ${user.lastName}">...</a></td>
 				</tr>
 			</tbody>
 		</table>

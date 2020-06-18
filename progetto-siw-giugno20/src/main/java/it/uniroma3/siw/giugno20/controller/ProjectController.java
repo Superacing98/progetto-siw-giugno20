@@ -21,6 +21,7 @@ import it.uniroma3.siw.giugno20.model.Task;
 import it.uniroma3.siw.giugno20.model.User;
 import it.uniroma3.siw.giugno20.services.CredentialsService;
 import it.uniroma3.siw.giugno20.services.ProjectService;
+import it.uniroma3.siw.giugno20.services.TaskService;
 import it.uniroma3.siw.giugno20.services.UserService;
 
 @Controller
@@ -28,6 +29,9 @@ public class ProjectController {
 
 	@Autowired
 	ProjectService projectService;
+	
+	@Autowired
+	TaskService taskService;
 
 	@Autowired
 	SessionData sessionData;
@@ -75,18 +79,18 @@ public class ProjectController {
 
 	@RequestMapping(value = { "/projects/{projectId}" }, method = RequestMethod.GET)
 	public String project(Model model, @PathVariable Long projectId) {
-		User loggedUser = sessionData.getLoggedUser();
-		Project project = projectService.getProject(projectId);
+		User loggedUser = this.sessionData.getLoggedUser();
+		Project project = this.projectService.getProject(projectId);
 		if(project == null) 
 			return "redirect:/projects";
 		List<User> members = this.userService.getMembers(project);
-		List<Task> tasks =project.getTasks();
+		List<Task> assignedTasks = this.taskService.retrieveVisibleTasks(loggedUser);
 		if(!project.getOwner().equals(loggedUser) && !members.contains(loggedUser)) 
 			return "redirect:/projects";
 		model.addAttribute("loggedUser", loggedUser);
 		model.addAttribute("project", project);
 		model.addAttribute("members", members);
-		model.addAttribute("tasks", tasks);
+		model.addAttribute("assignedTasks", assignedTasks);
 		return "project"; 
 	}
 

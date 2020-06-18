@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org">
+<head>
+<title>Assign Task</title>
+</head>
+<body>
+	<h1 th:text="'Task assigned with ' + ${user.firstName} + ' ' + ${user.lastName}"></h1>
+	<h2>
+		Back to <a href="/projects">My Projects</a>
+	</h2>
+	<h3>
+		<a href="/home">Home</a>
+	</h3>
+</body>
+</html>
