@@ -1,0 +1,34 @@
+CASI D'USO USER:
+- Sign up: Un utente inserisce username, password, nome e cognome e viene salvato nel DB con roulo di DEFAULT
+- Autenticazione: Cerca l'utente nel DB e confronta username e password con quelle inserite dall'utente e verifica che il ruolo è DEFAULT
+- Visualizzare il mio profilo: Cerca l'utente autenticato nel DB e mostra tutte le informazione necessarie(username, nome, cognome, data di creazione e ruolo)
+- Aggiornare il mio profilo: Aggiorna il profilo dell'utente autenticato nel DB facendo un update dei vai campi(username, nome, cognome e password)
+
+CASI D'USO ADMIN:
+- Autenticazione: Cerca l'utente nel DB e confronta username e password con quelle inserite dall'utente e verifica che il ruolo è ADMIN
+- Cancellare un utente registrato: Viene mostrata un lista di tutti gli utenti registrati, l'admin seleziona l'utente da eliminare dalla lista e infine l'utente selezionato viene eliminato dal DB
+
+CASI D'USO PROJECT:
+- Creare un nuovo progetto: L'utente immette i dati del progetto in una form e vengono salvati nel DB
+- Visualizzare i miei progetto: Vengono cercati i progetti nel DB di cui l'utente loggato è proprietario mostrandone il nome
+- Visualizzare un mio progetto: Viene cercato il progetto nel DB di cui l'utente loggato è proprietario mostrandone il nome, tasks, tags e gli utenti con cui è condiviso
+- Visualizzare progetti di cui sono membro: Vengono cercati i progetti visibili all'utente loggato nel DB mostrandone il nome 
+- Visualizzare un progetto di cui sono membro: Viene cercato il progetto visibile all'utente loggato nel DB mostrandone il nome, tasks, tags e gli utenti con il quale è condiviso
+- Aggiornare i dati di un mio progetto: Viene verificato che il progetto corrente appartiene all'utente loggato, vengono immessi i nuovi dati (nome) tramite una form e viene aggiornato nel DB
+- Cancellare un mio progetto: Viene verificato che il progetto corrente appartiene all'utente loggato e viene rimosso dal DB
+- Condividere un mio progetto con un altro utente: Viene verificato che il progetto corrente appartiene all'utente loggato, viene visualizzata una lista di tutti gli utenti
+  tranne l'utente loggato, viene selzionato un utente, viene aggiunto alla lista di membri del progetto e infine viene aggionato il progetto nel DB 
+- Aggiungere un tag ad un mio progetto (estensione): Viene verificato che il progetto corrente appartiene all'utente loggato, vengono inseriti i dati del tag tramite una form (nome, colore e descrizione), 
+  il tag viene aggiunto alla lista di tag del progetto e infine il tag viene salvato nel DB
+
+CASI D'USO TASK:
+- Aggiungere un nuovo task a un mio progetto: Viene verificato che il progetto corrente appartiene all'utente loggato, l'utente immette i dati del task in una form
+  (nome descrizione), il task viene aggiunto alla lista di task del progetto e infine il task viene salvato nel DB
+- Aggiornare un task di un mio progetto: Viene verificato che il progetto corrente appartiene all'utente loggato, vengono immessi i nuovi dati (nome e descrizione) tramite una form e viene aggiornato nel DB
+- Cancellare un task da un mio progetto: Viene verificato che il progetto corrente appartiene all'utente loggato e il task viene rimosso dal DB
+- Assegnare un task di un mio progetto ad un utente che ha visibilità sul mio progetto: Viene verificato che il progetto corrente appartiene all'utente loggato,
+  l'utente loggato sceglie tramite una lista l'utente a cui vuole assegnare il task, il task viene inserito nella lista di task dell'utente e infine il task viene salvato nel DB
+- Aggiungere un tag ad un task di un mio progetto (estensione): Viene verificato che il progetto corrente appartiene all'utente loggato, l'utente inserisce i dati (nome, colore e 
+  descrizione) tramite un form, il task viene aggiunto alla lista di task di tag e il tag viene salvato nel DB
+- Aggiungere un commento ad un task di un progetto su cui ho visibilità (estensione): Viene verificato che l'utente loggato ha visibilità sul progetto, viene selezionato il task, l'utento inserisci il commento tramite una form,
+  il commento viene aggiunto alla lista di commenti di task e infine il commento viene salvato nel DB. 
